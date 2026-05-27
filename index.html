@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Letters</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body {
+    background: linear-gradient(180deg, #e8dfd0 0%, #d9cdb8 100%);
+    font-family: 'Nanum Myeongjo', serif;
+    color: #3a2f24;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.4;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+  }
+
+  .from {
+    font-family: 'Gowun Batang', serif;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    color: #8b7355;
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeIn 1s ease-out 0.3s forwards;
+  }
+
+  .title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeIn 1s ease-out 0.6s forwards;
+  }
+
+  .letter-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .letter-list li {
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out forwards;
+  }
+
+  .letter-list li:nth-child(1) { animation-delay: 1s; }
+  .letter-list li:nth-child(2) { animation-delay: 1.3s; }
+
+  .letter-link {
+    display: block;
+    background: #faf6ec;
+    padding: 24px 32px;
+    text-decoration: none;
+    color: #3a2f24;
+    border-radius: 2px;
+    box-shadow:
+      0 1px 2px rgba(58, 47, 36, 0.08),
+      0 4px 16px rgba(58, 47, 36, 0.10);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .letter-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.06'/%3E%3C/svg%3E");
+    pointer-events: none;
+    mix-blend-mode: multiply;
+  }
+
+  .letter-link:active {
+    transform: scale(0.98);
+    box-shadow:
+      0 1px 2px rgba(58, 47, 36, 0.06),
+      0 2px 8px rgba(58, 47, 36, 0.08);
+  }
+
+  .letter-to {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: #8b7355;
+    margin-bottom: 8px;
+  }
+
+  .letter-name {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .divider {
+    width: 24px;
+    height: 1px;
+    background: #8b7355;
+    opacity: 0.3;
+    margin: 48px auto 0;
+    opacity: 0;
+    animation: fadeIn 1s ease-out 1.8s forwards;
+  }
+
+  .footer {
+    font-family: 'Gowun Batang', serif;
+    font-size: 11px;
+    color: #8b7355;
+    letter-spacing: 0.2em;
+    margin-top: 20px;
+    opacity: 0;
+    animation: fadeIn 1s ease-out 2s forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="from">FROM. 윤태원</div>
+    <div class="title">Letters</div>
+
+    <ul class="letter-list">
+      <li>
+        <a class="letter-link" href="toSD.html">
+          <div class="letter-to">TO.</div>
+          <div class="letter-name">임승대 대표님</div>
+        </a>
+      </li>
+      <li>
+        <a class="letter-link" href="toJonny.html">
+          <div class="letter-to">TO.</div>
+          <div class="letter-name">김은웅 실장님</div>
+        </a>
+      </li>
+    </ul>
+
+    <div class="divider"></div>
+    <div class="footer">2026 . 05 . 28</div>
+  </div>
+
+</body>
+</html>
