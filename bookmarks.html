@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>책갈피 카드 출력</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 48px;
+    padding: 48px;
+    font-family: 'Nanum Myeongjo', serif;
+  }
+
+  @media print {
+    body {
+      background: white;
+      padding: 0;
+      gap: 24px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .no-print { display: none; }
+  }
+
+  .card {
+    width: 54mm;
+    height: 148mm;
+    background: white;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12mm 6mm 10mm;
+    position: relative;
+  }
+
+  @media print {
+    .card {
+      border: 0.3mm solid #999;
+    }
+  }
+
+  .card-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6mm;
+    width: 100%;
+  }
+
+  .from {
+    font-family: 'Gowun Batang', serif;
+    font-size: 7pt;
+    letter-spacing: 0.25em;
+    color: #888;
+    text-align: center;
+  }
+
+  .divider-top {
+    width: 20mm;
+    height: 0.3mm;
+    background: #ccc;
+  }
+
+  .to-label {
+    font-family: 'Gowun Batang', serif;
+    font-size: 7pt;
+    letter-spacing: 0.3em;
+    color: #999;
+    text-align: center;
+  }
+
+  .name {
+    font-size: 13pt;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #1a1a1a;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .card-middle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4mm;
+  }
+
+  .qr-wrap {
+    width: 32mm;
+    height: 32mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .qr-wrap canvas,
+  .qr-wrap img {
+    width: 32mm !important;
+    height: 32mm !important;
+  }
+
+  .qr-hint {
+    font-family: 'Gowun Batang', serif;
+    font-size: 6.5pt;
+    color: #aaa;
+    letter-spacing: 0.1em;
+    text-align: center;
+  }
+
+  .card-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3mm;
+  }
+
+  .divider-bottom {
+    width: 20mm;
+    height: 0.3mm;
+    background: #ccc;
+  }
+
+  .date {
+    font-family: 'Gowun Batang', serif;
+    font-size: 7pt;
+    color: #bbb;
+    letter-spacing: 0.15em;
+    text-align: center;
+  }
+
+  /* 화면 미리보기용 버튼 */
+  .print-btn {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: #3a2f24;
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 14px;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    border-radius: 2px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- 임승대 대표님 카드 -->
+  <div class="card">
+    <div class="card-top">
+      <div class="from">FROM. 윤태원</div>
+      <div class="divider-top"></div>
+      <div class="to-label">TO.</div>
+      <div class="name">임승대<br>대표님</div>
+    </div>
+
+    <div class="card-middle">
+      <div class="qr-wrap" id="qr-sd"></div>
+      <div class="qr-hint">편지 열기</div>
+    </div>
+
+    <div class="card-bottom">
+      <div class="divider-bottom"></div>
+      <div class="date">2026 . 05 . 29</div>
+    </div>
+  </div>
+
+  <!-- 김은웅 실장님 카드 -->
+  <div class="card">
+    <div class="card-top">
+      <div class="from">FROM. 윤태원</div>
+      <div class="divider-top"></div>
+      <div class="to-label">TO.</div>
+      <div class="name">김은웅<br>실장님</div>
+    </div>
+
+    <div class="card-middle">
+      <div class="qr-wrap" id="qr-jonny"></div>
+      <div class="qr-hint">편지 열기</div>
+    </div>
+
+    <div class="card-bottom">
+      <div class="divider-bottom"></div>
+      <div class="date">2026 . 05 . 29</div>
+    </div>
+  </div>
+
+  <button class="print-btn no-print" onclick="window.print()">인쇄하기</button>
+
+  <script>
+    new QRCode(document.getElementById('qr-sd'), {
+      text: 'https://cloudavenue0012-creator.github.io/letters/toSD.html',
+      width: 121,
+      height: 121,
+      colorDark: '#1a1a1a',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+
+    new QRCode(document.getElementById('qr-jonny'), {
+      text: 'https://cloudavenue0012-creator.github.io/letters/toJonny.html',
+      width: 121,
+      height: 121,
+      colorDark: '#1a1a1a',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  </script>
+
+</body>
+</html>
